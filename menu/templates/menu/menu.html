@@ -1,0 +1,21 @@
+{% load static %}
+{% load menu_tags %}
+
+<nav>
+    <ul>
+        {% for item in menu_items %}
+            <li class="{% if item.is_current %}active{% endif %}">
+                <a href="{{ item.url }}" {% if item.is_current %}class="active"{% endif %}>{{ item.title }}</a>
+                {% if item.has_children %}
+                    <ul>
+                        {% for child in item.children %}
+                            <li class="{% if child.is_current %}active{% endif %}">
+                                <a href="{{ child.url }}" {% if child.is_current %}class="active"{% endif %}>{{ child.title }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+</nav>

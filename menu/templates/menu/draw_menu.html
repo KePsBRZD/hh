@@ -1,0 +1,31 @@
+{% load static %}
+
+{% if menu_items %}
+  <nav class="menu">
+    <ul>
+      {% for item in menu_items %}
+        <li class="{% if item.is_current %}active{% endif %}{% if item.has_children %} has-children{% endif %}">
+          <a href="{{ item.url }}">{% if item.icon %}<img src="{% static item.icon %}" alt="{{ item.title }}">{% endif %}{{ item.title }}</a>
+          {% if item.has_children %}
+            <ul>
+              {% for child in item.children %}
+                <li class="{% if child.is_current %}active{% endif %}{% if child.has_children %} has-children{% endif %}">
+                  <a href="{{ child.url }}">{% if child.icon %}<img src="{% static child.icon %}" alt="{{ child.title }}">{% endif %}{{ child.title }}</a>
+                  {% if child.has_children %}
+                    <ul>
+                      {% for subchild in child.children %}
+                        <li class="{% if subchild.is_current %}active{% endif %}">
+                          <a href="{{ subchild.url }}">{% if subchild.icon %}<img src="{% static subchild.icon %}" alt="{{ subchild.title }}">{% endif %}{{ subchild.title }}</a>
+                        </li>
+                      {% endfor %}
+                    </ul>
+                  {% endif %}
+                </li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  </nav>
+{% endif %}

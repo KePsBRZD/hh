@@ -1,0 +1,19 @@
+{% load static %}
+
+{% if item %}
+    {% if item.url %}
+        <a href="{{ item.url }}" {% if item.is_current %}class="active"{% endif %}>
+            {{ item.title }}
+        </a>
+    {% else %}
+        <span>{{ item.title }}</span>
+    {% endif %}
+
+    {% if item.has_children %}
+        <div class="dropdown">
+            {% for child in item.children %}
+                {% include "menu/menu_item.html" with item=child %}
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endif %}
